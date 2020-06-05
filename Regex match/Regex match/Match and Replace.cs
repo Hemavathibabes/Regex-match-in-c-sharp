@@ -100,9 +100,45 @@ namespace Match_and_Replace
                 Console.WriteLine("Timeout!!");
             }
 
+              //MatchEvaluator Delegate..Replace(string input,string pattern,matchevaluator,regexoptions,timespan)
 
+            string text = "aaabbbccddeessskjoeeccdduuullloojjwwddjjjhhhddooouuudd";
+            string patternstr = "dd";
+            Console.WriteLine("original string :{0}", text);
+            Program pr = new Program();
+            MatchEvaluator Me = new MatchEvaluator(pr.replacedd);
+            string  result= Regex.Replace(text, patternstr, Me, RegexOptions.IgnoreCase,TimeSpan.FromSeconds(1));
+
+            Console.WriteLine("Modified string is {0}", result);
+
+
+            //Replace(string input,string pattern,matchevaluator)
+
+            string text2 = "the prime minister of india is narendra modi.";
+            string patternstr2 = @"\w+";
+            Console.WriteLine("original string is :{0}", text2);
+            MatchEvaluator Me2 = new MatchEvaluator(pr.changeupper);
+            string result2 = Regex.Replace(text2, patternstr2, Me2);
+            Console.WriteLine("Modified sentence is :{0}", result2);
 
             Console.ReadLine();
+        }
+        
+         static int i = 0;
+        public string replacedd(Match mat)
+        {
+            i++;
+            return i.ToString() + i.ToString();
+        }
+        public string changeupper(Match matt)
+        {
+            string sr = matt.ToString();
+            if(char.IsLower(sr[0]))
+
+            {
+                return char.ToUpper(sr[0]) + sr.Substring(1, sr.Length - 1);
+            }
+            return sr;
         }
     }
 }
